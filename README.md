@@ -1,19 +1,20 @@
-# Snakemake workflow: ngs-test-data
+# Snakemake workflow: scngs-test-data
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥4.2-brightgreen.svg)](https://snakemake.bitbucket.io)
-[![Build Status](https://travis-ci.org/snakemake-workflows/ngs-test-data.svg?branch=master)](https://travis-ci.org/snakemake-workflows/ngs-test-data)
+[![Build Status](https://travis-ci.org/Hoohm/scngs-test-data.svg?branch=master)](https://travis-ci.org/Hoohm/scngs-test-data/)
 
 This workflow creates small test datasets for NGS data analyses. The generated data is available in the folders `ref` and `reads`, such that the repository can be directly used as a git submodule for continuous integration tests.
 
 ## Authors
 
 * Johannes Köster (@johanneskoester), https://koesterlab.github.io
+* Patrick Roelli (@Hoohm)
 
 ## Usage
 
 ### Step 1: Install workflow
 
-If you simply want to use this workflow, download and extract the [latest release](https://github.com/snakemake-workflows/ngs-test-data/releases).
+If you simply want to use this workflow, git clone the [repo](https://github.com/Hoohm/scngs-test-data.git).
 If you intend to modify and further develop this workflow, fork this reposity. Please consider providing any generally applicable modifications via a pull request.
 
 In any case, if you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this repository and, if available, its DOI (see above).
