@@ -11,13 +11,13 @@ rule all:
     input:
         expand(["ref/annotation.chr{chrom}.gtf",
                 "ref/genome.chr{chrom}.fa"], chrom=config["chrom"]),
-        expand("reads/{sample}.chr{chrom}.{group}.fq", 
-               group=[1, 2], sample=["a", "b"], chrom=config["chrom"])
+        expand("{sample}_{group}.fastq.gz", 
+               group=['R1', 'R2'], sample=["sample1", "sample2"])
 
 
 rule annotation:
     input:
-        FTP.remote("ftp.ensembl.org/pub/release-90/gtf/homo_sapiens/Homo_sapiens.GRCh38.90.gtf.gz", static=True, keep_local=True)
+        FTP.remote("ftp.ensembl.org/pub/release-91/gtf/mus_musculus/Mus_musculus.GRCm38.91.gtf.gz", static=True, keep_local=True)
     output:
         "ref/annotation.chr{chrom}.gtf"
     shell:
@@ -26,7 +26,7 @@ rule annotation:
 
 rule genome:
     input:
-        FTP.remote("ftp://ftp.ensembl.org/pub/release-90/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna_sm.chromosome.{chrom}.fa.gz", static=True, keep_local=True)
+        FTP.remote("ftp.ensembl.org/pub/release-91/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.chromosome.{chrom}.fa.gz", static=True, keep_local=True)
     output:
         "ref/genome.chr{chrom}.fa"
     shell:
@@ -35,8 +35,7 @@ rule genome:
 
 rule reads:
     output:
-        "reads/{sample}.chr{chrom}.1.fq",
-        "reads/{sample}.chr{chrom}.2.fq"
+        "{sample}_{group}.fastq.gz"
     params:
         url=config["bam"],
         seed=lambda wildcards: abs(hash(wildcards.sample)) % 10000
