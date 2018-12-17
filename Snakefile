@@ -9,8 +9,8 @@ configfile: "config.yaml"
 
 rule all:
     input:
-        expand(["ref/annotation.chr{chrom}.gtf",
-                "ref/genome.chr{chrom}.fa"], chrom=config["chrom"]),
+        "ref/mus_musculus_38_91/annotation.gtf",
+        "ref/mus_musculus_38_91/genome.fa",
         expand("{sample}_{group}.fastq.gz", 
                group=['R1', 'R2'], sample=["sample1", "sample2"])
 
@@ -19,16 +19,16 @@ rule annotation:
     input:
         FTP.remote("ftp.ensembl.org/pub/release-91/gtf/mus_musculus/Mus_musculus.GRCm38.91.gtf.gz", static=True, keep_local=True)
     output:
-        "ref/annotation.chr{chrom}.gtf"
+        "ref/mus_musculus_38_91/annotation.gtf"
     shell:
         "zgrep -P ^{wildcards.chrom} {input} > {output}"
 
 
 rule genome:
     input:
-        FTP.remote("ftp.ensembl.org/pub/release-91/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.chromosome.{chrom}.fa.gz", static=True, keep_local=True)
+        FTP.remote("ftp.ensembl.org/pub/release-91/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.chromosome.19.fa.gz", static=True, keep_local=True)
     output:
-        "ref/genome.chr{chrom}.fa"
+        "ref/mus_musculus_38_91/genome.fa"
     shell:
         "gzip -d -c {input} > {output}"
 
